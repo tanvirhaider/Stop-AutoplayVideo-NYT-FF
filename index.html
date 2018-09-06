@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+
+
+    <!--[Template] DFP Quartiles Flex Frame: Video 16:9 (Three Column) Click To Play Desktop: Updated with ability to add fonts 08/07/18 10:56am -->
+
+
+<script type="text/javascript" src="mraid.js"></script>
+<script type="text/javascript" src="https://fast.fonts.net/jsapi/4221a460-4ed2-4039-a07f-d1f4a2739cad.js"></script>
+
+
+<div id="container" class="container">
+  
+  <div class="flex-frame">
+
+    <div id="media-container" class="media-container">
+      <div class="media-content">
+      
+      </div>
+
+
+      <div class="video video-content">
+      #%NATIVE_VIDEO_WRAPPER%#
+      </div>
+   </div>
+
+<a target="_blank" href="%%CLICK_URL_UNESC%%%%DEST_URL%%">
+    <div class="content-container">
+      <div class="content-well">
+      <div class="logo">
+            <img onclick="eventTracker.generalEventTrack('clickURL', 'logo', '%%CLICK_URL_UNESC%%%%DEST_URL_UNESC%%')" class="logo-std" src="[%Logo%]" />
+            <img onclick="eventTracker.generalEventTrack('clickURL', 'logo', '%%CLICK_URL_UNESC%%%%DEST_URL_UNESC%%')" class="logo-hi-res" src="[%LogoHiRes%]" />
+          </div>
+        <div class="content-middle-well">
+          <div id="title2" class="title">[%Headline%]</div>
+          <div class="summary">[%Summary%]</div>
+          <div onclick="eventTracker.generalEventTrack('clickURL', 'cta', '%%CLICK_URL_UNESC%%%%DEST_URL_UNESC%%')" class="cta">[%CTA%]</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="img-container">
+      <img src="[%Image%]" />
+    </div>
+
+    </a>
+
+  </div>
+</div>
+
+
+<!-- <script type="text/javascript" src="https://static01.nyt.com/ads/dfp_native_ads/javascript/canvas-video-player-patched.js"></script>
+-->
+
+<script type="text/javascript">
+
+ "use strict";
+
+// Native Tracking Code //
+
+var eventTracker = function () {
+var ETLink = "https://et.nytimes.com/?subject=dfp-ad-events&dfp_creativeid=%ecid!&dfp_lineitemid=%eaid!&dfp_orderid=%ebuy!&dfp_viewport=%%PATTERN:vp%%&pageviewid=%%PATTERN:page_view_id%%&dfp_pos=%%PATTERN:pos%%&dfp_prop=%%PATTERN:prop%%";
+
+var slideCSSClass = "slide";
+var slideNavType = "slideURL";
+var slideClickType = "clickURL";
+
+//Slide navigation control
+var slidesNum = document.getElementsByClassName(slideCSSClass).length;
+var currentSlide = 1;
+
+/*
+* function to call the Nytimes ET pixel link for the slide templte
+* @param curr - current slide
+* @param type - event type 
+*/
+var ETSlideCall = function ETSlideCall(type, curr) {
+var next = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "";
+
+var trackingLink = ETLink + "&dfp_event_type=" + type + "&dfp_event_location=slide-" + curr;
+if (next != "") {
+trackingLink += "_" + "slide-" + next;
+}
+document.createElement('img').src = trackingLink;
+};
+//Public functions
+return {
+/*
+*Next slide function - Updates the current slide and call the ET function
+*/
+nextSlideET: function nextSlideET() {
+var prevSlide = currentSlide;
+if (currentSlide >= slidesNum) {
+currentSlide = 1;
+} else {
+currentSlide++;
+}
+ETSlideCall(slideNavType, prevSlide, currentSlide);
+},
+
+/*
+* Previous slide function - Updates the current slide and call the ET function
+*/
+prevSlideET: function prevSlideET() {
+var prevSlide = currentSlide;
+if (currentSlide <= 1) {
+currentSlide = slidesNum;
+} else {
+currentSlide--;
+}
+ETSlideCall(slideNavType, prevSlide, currentSlide);
+},
+
+/*
+* Click slide function - Redirects to target url
+* @param tag - HTML anchor tag the called this func. 
+* @param next - sums up to the current slide number 
+* usage: <a href="link-to-the-ad-redirect" onclick="eventTracker.slideClickET(this)">
+*/
+slideClickET: function slideClickET(tag) {
+var next = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+// console.log("this", tag);
+event.preventDefault();
+var slideTrack = currentSlide;
+if (next) {
+slideTrack = currentSlide == slidesNum ? 1 : currentSlide + 1;
+}
+ETSlideCall(slideClickType, slideTrack);
+var url = tag.href;
+window.open(url, '_blank');
+},
+
+/*
+* General event tracker call
+* @param eventType - event type to be tracked
+* @param eventLocation - event location to be tracked
+* @param redirectLink - Link to ad page to be called after eventtracker
+*/
+
+generalEventTrack: function generalEventTrack(eventType, eventLocation) {
+var redirectLink = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "";
+
+event.preventDefault();
+var trackingLink = ETLink + "&dfp_event_type=" + eventType + "&dfp_event_location=" + eventLocation;
+document.createElement('img').src = trackingLink;
+if (redirectLink != "") {
+window.open(redirectLink, '_blank');
+}
+},
+
+setETLink: function setETLink(link) {
+ETLink = link;
+},
+
+setSlideCSSClass: function setSlideCSSClass(cssClass) {
+slideCSSClass = cssClass;
+slidesNum = document.getElementsByClassName(slideCSSClass).length;
+},
+setSlideClicktype: function setSlideClicktype(type) {
+slideClickType = type;
+},
+
+setSlideNavType: function setSlideNavType(type) {
+slideNavType = type;
+}
+};
+}();
+
+// End of Native Tracking Code // 
+
+
+(function() {
+  var mediaContainer = document.getElementById('media-container')
+  var tabletContent = mediaContainer.getElementsByClassName('media-content')[0];
+  var tabletCTA = mediaContainer.getElementsByClassName('cta')[0];
+  var tabletGradient = mediaContainer.getElementsByClassName('gradient')[0];
+  var tabletLogo = mediaContainer.getElementsByClassName('logo')[0];
+  var isIphone = navigator.userAgent.indexOf('iPhone') >= 0;
+
+if (isIphone) {
+  } else {
+    //Register the SafeFrame API extension and listen for viewable change.
+    try {
+      //$sf.ext.register(1605, 300, status_update);
+    } catch(e){
+      //console.log("Exception or no safeframes available: " + e.message);
+    }
+    //Toggle cover if video view percent passes 50.
+    function status_update(status, data)
+    {
+      if($sf.ext.inViewPercentage() < 50){ 
+        revealCover();
+        reset();
+      } else {
+        hideCover();
+      }
+    }
+  }
+  
+function revealCover () {
+    tabletContent.classList.remove('hidden');
+    tabletCTA.classList.add('hidden');
+    tabletGradient.classList.remove('hidden');
+    tabletLogo.classList.remove('hidden');
+  }
+
+  function hideCover () {
+    tabletContent.classList.add('hidden');
+    tabletCTA.classList.remove('hidden');
+    tabletGradient.classList.add('hidden');
+    tabletLogo.classList.remove('hidden');
+  }
+
+  function reset() {
+  }
+
+})();
+</script>
+
+<!--Remove JS code for context bullet
+<script type="text/javascript">
+(function() {
+  var header = document.getElementsByClassName('context-bullet')[0];
+  var headerContent = document.getElementsByClassName('context-bullet-content')[0];
+  var noHeaderPages = ['hp', 'int', 'art', 'art,rev', 'art,oak'];
+  var pageType = '%%PATTERN:typ%%';
+  var pagePos = '%%PATTERN:pos%%';
+  var prop = '%%PATTERN:prop%%';
+
+  if (pagePos === 'top') {
+    if (noHeaderPages.indexOf(pageType) > -1) {
+      header.style.display = 'none';
+    } else {
+      headerContent.style.display = 'none';
+    }
+  } else if (prop === 'itabapp') {
+    header.style.display = 'table';
+  } else if (pageType === 'hp') {
+    header.style.display = 'none';
+  } 
+})();
+</script>
+-->
+
+<script type="text/javascript">
+(function() {
+// Hide gradient if necessary
+var toggleGradient = [%ToggleGradient%];
+var gradients = [].slice.call(document.getElementsByClassName('gradient'));
+if (toggleGradient > 0) {
+  gradients.forEach(function(el) {
+    el.style.display = 'none';
+  });
+}
+})();
+</script>
+<div style="display: none;">
+[%CustomTracking%]
+</div>
+<div id="impression-pixel" class="impression-tracker">
+  <img src="[%ImpressionPixel%]" width="1" height="1" border="0" />
+</div>
+<div id="impression-pixel-2" class="impression-tracker">
+  <img src="[%ImpressionPixel2%]" width="1" height="1" border="0" />
+</div>
+<script type="text/javascript">
+parent.postMessage({exclusive: [%Exclusivity%], type: '[%ExclusivityType%]', div:'%%PATTERN:div%%'},'*');
+</script>
+
+<!-- Removed JS that detects play/Pause
+<script>
+
+// code to check if the video is playing or not -------------------------
+
+// Global Variables for setting purposes:
+var IntervalDelta = 200;
+var DimensionCutOffPoint = 975;
+var DEBUG = false;
+
+function checkforPlayPauseState () {
+  // local variables -----------
+  var status;       // status check, to set the value if video is playing or not
+  var GVD;          // google native player within gets inserted by DFP
+  var imgLocation;  // image location of the video play / pause btn
+  var playPNG;      // storing the location of the play / pause btn
+
+
+  try {GVD = document.getElementById("google-native-video");} catch (Error) {}
+  try {imgLocation = GVD.children[2].src;} catch (Error) {}
+  try {playPNG = imgLocation.search("play");} catch (Error) {}
+
+  if (playPNG > -1) { status = "pause"; }
+  else { status = "playing"; }
+
+  return status;  // returning "pause" or "playing" strings
+}
+
+// function to continuously check to see if the video is playing or not
+setInterval(function(){ 
+
+  var intViewportWidth;     // checking the width of the browser
+  var mediaContent;         // mediaContent div storage 
+
+  try {intViewportWidth = window.innerWidth;} catch (Error) {}  // checking the width of the browser
+  try {mediaContent = document.querySelector(".media-content");} catch (Error) {}
+
+  if (intViewportWidth < DimensionCutOffPoint) {
+    var playPauseStats = checkforPlayPauseState();
+    if (playPauseStats == "pause") { 
+      try { mediaContent.style.display = "block";} 
+      catch(Error) {} 
+    }
+    else {
+      try { mediaContent.style.display = "none";} 
+      catch(Error) {} 
+    }
+
+    if (DEBUG) {console.log("checking ad video status :::: ",playPauseStats);}
+    
+  }
+  else {
+    try { mediaContent.style.display = "none";} catch(Error) {} 
+  }
+  
+ }, IntervalDelta);
+
+//  end of code to check if the video is playing or not --------------
+</script>
+end of JS that checks for play pause-->
+
+
+<!-- code to make sure the video is not autoplaying  
+  company: Willow Studios Inc.
+  developer: Tanvir Haider
+-->
+
+<script>
+
+var vidDuration;
+var counter = 1;
+//var SFviewableVal = [];
+var vdo;
+var alreadySet = false;
+
+function runBruteForce () {
+    console.group("--------- willow test 40 -------------");
+
+    function stopVideo () {
+        try {
+            vdo = document.getElementsByTagName("video")[0];
+            console.log("vdo object: ", vdo);
+            vdo.autoplay = false;
+            vdo.preload = "none";
+            vdo.pause();
+
+            vdo.addEventListener('loadedmetadata', function(event){
+              console.log(event);
+              vidDuration = Math.floor(vdo.duration);
+              console.log("what is the video duration: ----------- : ",vidDuration);
+
+              if (!alreadySet) {
+                console.log("player head will update now ----------- : ");
+                vdo.currentTime = vidDuration;
+                alreadySet = true;
+                console.log("player head has been updated ----------- : ",vdo.currentTime);
+              }
+            });
+            
+            // vdo.onloadedmetadata = function(event) {
+             
+            // };
+
+            // vdo.currentTime = vidDuration;
+        }
+
+        catch(Error) {console.log(Error);}
+    }
+
+
+    // function status_update(status, data) {
+    //   // notify if 50% in view for 1 second
+    //   if($sf.ext.inViewPercentage() > 50) {
+    //     // if(viewableTimerId == 0){
+    //     // viewableTimerId = setTimeout(function()
+    //     // {notifyViewablePassed(); }, 1000);}
+    //     vdo = document.getElementsByTagName("video")[0];
+    //         //console.log("vdo object: ", vdo);
+    //        // vdo.autoplay = false;
+    //        // vdo.preload = false;
+    //       vdo.pause();
+    //   }
+    //   else{
+    //     clearTimeout(viewableTimerId);
+    //   }
+    // }
+
+    // $sf.ext.register(480, 270, status_update);
+
+    // function safeFrameViewPercentage () {
+    //   SFviewableVal.push($sf.ext.inViewPercentage());
+
+    //   if (SFviewableVal[SFviewableVal.length - 1] != SFviewableVal[SFviewableVal.length - 2]) {
+    //     console.log("yup thre is a difference");
+    //    // vdo.currentTime = 0;
+    //     vdo = document.getElementsByTagName("video")[0];
+    //     vdo.pause();
+    //   }
+    // }
+
+   // setInterval(function(){safeFrameViewPercentage ();}, 100);
+    setTimeout(function(){stopVideo ();}, 250);
+}
+
+window.onload = function() {
+  runBruteForce ();
+};
+
+</script>
+
+
+
+    
+</body>
+</html>
