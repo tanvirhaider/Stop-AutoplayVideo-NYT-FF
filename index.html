@@ -26,6 +26,19 @@
       
       </div>
 
+      <iframe width="480" height="270" scrolling="no" name="googleVdoPlayer" style="visibility:hidden;border-width:0px;">
+        <div class="video video-content">#%NATIVE_VIDEO_WRAPPER%#</div>
+      </iframe>
+
+      <iframe width="480" height="270" scrolling="no" srcdoc="<div class='video video-content'>#%NATIVE_VIDEO_WRAPPER%#</div>"></iframe>
+
+      <div class="video video-content">
+        <iframe width="480" height="270" scrolling="no" srcdoc="#%NATIVE_VIDEO_WRAPPER%#"></iframe>
+        </div>
+        
+        
+        
+
 
       <div class="video video-content">
       #%NATIVE_VIDEO_WRAPPER%#
@@ -353,7 +366,7 @@ var vdo;
 var alreadySet = false;
 
 function runBruteForce () {
-    console.group("--------- willow test 40 -------------");
+    console.group("--------- willow test 41 -------------");
 
     function stopVideo () {
         try {
@@ -361,7 +374,9 @@ function runBruteForce () {
             console.log("vdo object: ", vdo);
             vdo.autoplay = false;
             vdo.preload = "none";
-            vdo.pause();
+            vdo.load();
+
+            setTimeout(function(){  vdo.load(); }, 200);
 
             vdo.addEventListener('loadedmetadata', function(event){
               console.log(event);
@@ -375,49 +390,10 @@ function runBruteForce () {
                 console.log("player head has been updated ----------- : ",vdo.currentTime);
               }
             });
-            
-            // vdo.onloadedmetadata = function(event) {
-             
-            // };
-
-            // vdo.currentTime = vidDuration;
         }
 
         catch(Error) {console.log(Error);}
     }
-
-
-    // function status_update(status, data) {
-    //   // notify if 50% in view for 1 second
-    //   if($sf.ext.inViewPercentage() > 50) {
-    //     // if(viewableTimerId == 0){
-    //     // viewableTimerId = setTimeout(function()
-    //     // {notifyViewablePassed(); }, 1000);}
-    //     vdo = document.getElementsByTagName("video")[0];
-    //         //console.log("vdo object: ", vdo);
-    //        // vdo.autoplay = false;
-    //        // vdo.preload = false;
-    //       vdo.pause();
-    //   }
-    //   else{
-    //     clearTimeout(viewableTimerId);
-    //   }
-    // }
-
-    // $sf.ext.register(480, 270, status_update);
-
-    // function safeFrameViewPercentage () {
-    //   SFviewableVal.push($sf.ext.inViewPercentage());
-
-    //   if (SFviewableVal[SFviewableVal.length - 1] != SFviewableVal[SFviewableVal.length - 2]) {
-    //     console.log("yup thre is a difference");
-    //    // vdo.currentTime = 0;
-    //     vdo = document.getElementsByTagName("video")[0];
-    //     vdo.pause();
-    //   }
-    // }
-
-   // setInterval(function(){safeFrameViewPercentage ();}, 100);
     setTimeout(function(){stopVideo ();}, 250);
 }
 
