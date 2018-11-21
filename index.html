@@ -26,23 +26,14 @@
       
       </div>
 
-      <iframe width="480" height="270" scrolling="no" name="googleVdoPlayer" style="visibility:hidden;border-width:0px;">
-        <div class="video video-content">#%NATIVE_VIDEO_WRAPPER%#</div>
-      </iframe>
-
-      <iframe width="480" height="270" scrolling="no" srcdoc="<div class='video video-content'>#%NATIVE_VIDEO_WRAPPER%#</div>"></iframe>
-
       <div class="video video-content">
-        <iframe width="480" height="270" scrolling="no" srcdoc="#%NATIVE_VIDEO_WRAPPER%#"></iframe>
-        </div>
-        
-        
-        
-
-
-      <div class="video video-content">
+        <div id="posterImage"><img src="" alt=""></div>
       #%NATIVE_VIDEO_WRAPPER%#
       </div>
+
+
+
+
    </div>
 
 <a target="_blank" href="%%CLICK_URL_UNESC%%%%DEST_URL%%">
@@ -361,12 +352,11 @@ end of JS that checks for play pause-->
 
 var vidDuration;
 var counter = 1;
-//var SFviewableVal = [];
 var vdo;
 var alreadySet = false;
 
 function runBruteForce () {
-    console.group("--------- willow test 41 -------------");
+    console.group("--------- willow test 52 -------------");
 
     function stopVideo () {
         try {
@@ -374,22 +364,10 @@ function runBruteForce () {
             console.log("vdo object: ", vdo);
             vdo.autoplay = false;
             vdo.preload = "none";
-            vdo.load();
-
-            setTimeout(function(){  vdo.load(); }, 200);
-
-            vdo.addEventListener('loadedmetadata', function(event){
-              console.log(event);
-              vidDuration = Math.floor(vdo.duration);
-              console.log("what is the video duration: ----------- : ",vidDuration);
-
-              if (!alreadySet) {
-                console.log("player head will update now ----------- : ");
-                vdo.currentTime = vidDuration;
-                alreadySet = true;
-                console.log("player head has been updated ----------- : ",vdo.currentTime);
-              }
-            });
+            vidDuration = Math.floor(vdo.duration);
+            //vdo.pause();
+            console.log("video duration is  ",vidDuration);
+            vdo.currentTime = vidDuration;
         }
 
         catch(Error) {console.log(Error);}
